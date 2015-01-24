@@ -13,6 +13,7 @@ namespace CompleteProject
         GameObject player;                          // Reference to the player GameObject.
         PlayerHealth playerHealth;                  // Reference to the player's health.
         EnemyHealth enemyHealth;                    // Reference to this enemy's health.
+        PlayerMovement playerMovement;
         bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
         float timer;                                // Timer for counting up to the next attack.
 
@@ -21,6 +22,7 @@ namespace CompleteProject
         {
             // Setting up the references.
             player = GameObject.FindGameObjectWithTag ("Player");
+            playerMovement = player.GetComponent<PlayerMovement>();
             playerHealth = player.GetComponent <PlayerHealth> ();
             enemyHealth = GetComponent<EnemyHealth>();
             anim = GetComponent <Animator> ();
@@ -78,8 +80,11 @@ namespace CompleteProject
             // If the player has health to lose...
             if(playerHealth.currentHealth > 0)
             {
+              if (playerMovement != null && playerMovement.state != PlayerStatus.Dash)
+              {
                 // ... damage the player.
-                playerHealth.TakeDamage (attackDamage);
+                playerHealth.TakeDamage(attackDamage);
+              }
             }
         }
     }
