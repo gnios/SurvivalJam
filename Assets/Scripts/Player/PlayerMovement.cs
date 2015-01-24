@@ -3,11 +3,6 @@
 using UnityEngine;
 using System.Collections;
 
-public enum PlayerStatus
-{
-  Dash,
-  Stopped
-}
 public class PlayerMovement : MonoBehaviour
 {
   private Transform myTransform;				// this transform
@@ -18,14 +13,12 @@ public class PlayerMovement : MonoBehaviour
   public float moveSpeed = 50;
   public float dashMaxTime = 1f;
   public float dashCurrentTime = 0f;
-  public PlayerStatus state;
 
   void Start()
   {
     myTransform = transform;							// sets myTransform to this GameObject.transform
     destinationPosition = myTransform.position;			// prevents myTransform reset
     dashCurrentTime = dashMaxTime;
-    state = PlayerStatus.Stopped;
   }
 
   void Update()
@@ -37,13 +30,13 @@ public class PlayerMovement : MonoBehaviour
     if (destinationDistance < .5f || dashCurrentTime <= 0)
     {		// To prevent shakin behavior when near destination
       this.currentMoveSpeed = 0;
-      this.state = PlayerStatus.Stopped;
+      GameManager.instance.ChangePlayerState(PlayerStates.Stopped);
       rigidbody.velocity = Vector3.zero;
     }
     else if (destinationDistance > .5f || dashCurrentTime > 0)
     {			// To Reset Speed to default
       this.currentMoveSpeed = moveSpeed;
-      this.state = PlayerStatus.Dash;
+      GameManager.instance.ChangePlayerState(PlayerStates.Dash);
     }
 
 
@@ -55,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       float hitdist = 0.0f;
 
-      if (playerPlane.Raycast(ray, out hitdist) && this.state != PlayerStatus.Dash)
+      if (playerPlane.Raycast(ray, out hitdist) &&  GameManager.instance.playerStates != PlayerStates.Dash)
       {
         destinationPosition = ray.GetPoint(hitdist);
         myTransform.rotation = Turning(ray);
@@ -63,32 +56,12 @@ public class PlayerMovement : MonoBehaviour
       }
     }
 
-    //// Moves the player if the mouse button is hold down
-    //else if (Input.GetMouseButton(0) && GUIUtility.hotControl == 0)
-    //{
-
-    //  Plane playerPlane = new Plane(Vector3.up, myTransform.position);
-    //  Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //  float hitdist = 0.0f;
-
-    //  if (playerPlane.Raycast(ray, out hitdist))
-    //  {
-    //    destinationPosition = ray.GetPoint(hitdist);
-    //    myTransform.rotation = Turning(ray);
-    //  }
-    //  //	myTransform.position = Vector3.MoveTowards(myTransform.position, destinationPosition, currentMoveSpeed * Time.deltaTime);
-    //}
-
-    TimeForDash();
+    this.TimerDash();
     // To prevent code from running if not needed
     if (destinationDistance > .5f)
     {
       Vector3 direction = (destinationPosition - myTransform.position).normalized;
       rigidbody.AddForce((destinationPosition - transform.position).normalized * (currentMoveSpeed * 10000) * Time.smoothDeltaTime);
-      //rigidbody.AddRelativeForce(direction * currentMoveSpeed);
-
-      //myTransform.position = Vector3.MoveTowards(myTransform.position, destinationPosition, this.currentMoveSpeed);
-      // find the target position relative to the player:
     }
   }
   private Quaternion Turning(Ray ray)
@@ -96,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     return Quaternion.LookRotation(destinationPosition - transform.position);
   }
 
-  private void TimeForDash()
+  private void TimerDash()
   {
     dashCurrentTime -= Time.deltaTime;
     if (dashCurrentTime <= 0)
@@ -115,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
       // If the EnemyHealth component exist...
       if (enemyHealth != null)
       {
-        if (state == PlayerStatus.Dash)
+        if (GameManager.instance.playerStates == PlayerStates.Dash)
         {
           // ... the enemy should take damage.
           enemyHealth.TakeDamage(dashDamage, gameObject.transform.position);

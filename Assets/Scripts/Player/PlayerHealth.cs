@@ -11,6 +11,7 @@ namespace CompleteProject
         public Slider healthSlider;                                 // Reference to the UI's health bar.
         public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
         public AudioClip deathClip;                                 // The audio clip to play when the player dies.
+        public AudioClip cureClip;
         public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
         public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
@@ -18,7 +19,6 @@ namespace CompleteProject
         Animator anim;                                              // Reference to the Animator component.
         AudioSource playerAudio;                                    // Reference to the AudioSource component.
         PlayerMovement playerMovement;                              // Reference to the player's movement.
-        DashDamage dashDamage;                              // Reference to the DashDamage script.
         bool isDead;                                                // Whether the player is dead.
         bool damaged;                                               // True when the player gets damaged.
 
@@ -29,7 +29,6 @@ namespace CompleteProject
             anim = GetComponent <Animator> ();
             playerAudio = GetComponent <AudioSource> ();
             playerMovement = GetComponent <PlayerMovement> ();
-            this.dashDamage = GetComponentInChildren <DashDamage> ();
 
             // Set the initial health of the player.
             currentHealth = startingHealth;
@@ -78,14 +77,20 @@ namespace CompleteProject
             }
         }
 
+        public void RemoveDamage(int amount)
+        {
+          damaged = true;
+          currentHealth += amount;
+          healthSlider.value = currentHealth;
+          //playerAudio.clip = cureClip;
+          playerAudio.Play();
+        }
+
 
         void Death ()
         {
             // Set the death flag so this function won't be called again.
             isDead = true;
-
-            // Turn off any remaining shooting effects.
-            this.dashDamage.DisableEffects ();
 
             // Tell the animator that the player is dead.
             anim.SetTrigger ("Die");
@@ -96,7 +101,6 @@ namespace CompleteProject
 
             // Turn off the movement and shooting scripts.
             playerMovement.enabled = false;
-            this.dashDamage.enabled = false;
         }
 
 

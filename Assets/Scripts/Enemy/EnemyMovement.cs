@@ -11,7 +11,7 @@ namespace CompleteProject
     PlayerHealth playerHealth;      // Reference to the player's health.
     EnemyHealth enemyHealth;        // Reference to this enemy's health.
     NavMeshAgent nav;               // Reference to the nav mesh agent.
-
+    public EnemyStates enemyStates;
 
     void Awake()
     {
@@ -28,28 +28,10 @@ namespace CompleteProject
       // If the enemy and the player have health left...
       if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
       {
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        //.Where(p => Vector3.Distance(transform.position, p.transform.position) < 2.5f)
-        //.Select(p => transform)
-        //.FirstOrDefault();
-        // ... set the destination of the nav mesh agent to the player.
-
-        float shortestDistance = 0;
-        float distanceAux = 10000f;
-        foreach (var playerGame in players)
-        {
-          shortestDistance = Vector3.Distance(transform.position, playerGame.transform.position);
-
-          if (shortestDistance < distanceAux )
-          {
-            player = playerGame.transform;
-            distanceAux = shortestDistance;
-          }
-        }
-
+        this.player = GameManager.instance.SeekPlayerNext(this.transform.position).transform;
         nav.SetDestination(player.position);
       }
-      // Otherwise...
+        // Otherwise...
       else
       {
         // ... disable the nav mesh agent.
