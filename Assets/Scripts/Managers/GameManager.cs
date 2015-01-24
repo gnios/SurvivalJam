@@ -5,24 +5,35 @@ namespace CompleteProject
   public class GameManager : MonoBehaviour
   {
 
-    public PlayerStates playerStates;       // Reference to the player's heatlh.
-    public EnemyStates enemyStates;                // The enemy prefab to be spawned.
-    public static GameManager instance { get; private set; }
+    public PlayerStates playerStates;
+    public float durationOfPowerUp = 3;
+    public float currentTimePowerUp;
+    private bool usingPowerUp;
 
-    //When the object awakens, we assign the static variable
+    public static GameManager instance { get; private set; }
     void Awake()
     {
       instance = this;
+      currentTimePowerUp = durationOfPowerUp;
+    }
+
+    void Update()
+    {
+      if (usingPowerUp)
+      {
+        currentTimePowerUp -= Time.deltaTime;
+        if (currentTimePowerUp <= 0)
+        {
+          this.ChangePlayerState(PlayerStates.Normal);
+        }
+      }
     }
 
     public void ChangePlayerState(PlayerStates state)
     {
       this.playerStates = state;
-    }
-
-    public void ChangeEnemyState(EnemyStates state)
-    {
-      this.enemyStates = state;
+      usingPowerUp = true;
+      currentTimePowerUp = durationOfPowerUp;
     }
 
     public GameObject SeekPlayerNext(Vector3 point)

@@ -1,5 +1,6 @@
 ﻿public enum PlayerStates
 {
   Dash,
-  Stopped
+  Normal,
+  Shield
 }

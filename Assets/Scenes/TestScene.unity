@@ -2531,6 +2531,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 548c56f4bcf4db24b8aa057e9846a005, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 548c56f4bcf4db24b8aa057e9846a005, type: 2}
   m_RootGameObject: {fileID: 1948652287}
@@ -2898,6 +2902,7 @@ MonoBehaviour:
   healthSlider: {fileID: 916099405}
   damageImage: {fileID: 519428541}
   deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
+  cureClip: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: .0980392173}
 --- !u!95 &151247178
@@ -4811,7 +4816,7 @@ Prefab:
       objectReference: {fileID: 250445150}
     - target: {fileID: 11400002, guid: 4e5a0d387dc27394b81600988ad0216f, type: 2}
       propertyPath: moveSpeed
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 4e5a0d387dc27394b81600988ad0216f, type: 2}
       propertyPath: dashMaxTime
@@ -11653,7 +11658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1948652288
 Transform:
   m_ObjectHideFlags: 0
@@ -11986,7 +11991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1957451164
 Transform:
   m_ObjectHideFlags: 0
@@ -12315,6 +12320,88 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 798228305}
   m_GameObject: {fileID: 2002866911}
+--- !u!1 &2022171140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2022171145}
+  - 33: {fileID: 2022171144}
+  - 65: {fileID: 2022171143}
+  - 23: {fileID: 2022171142}
+  - 114: {fileID: 2022171141}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2022171141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022171140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3e446ebcdb8c84bad1a289589a9d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 10
+--- !u!23 &2022171142
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022171140}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 007cd3dce0e6539409edcc484011c877, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &2022171143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022171140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &2022171144
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022171140}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2022171145
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022171140}
+  m_LocalRotation: {x: 0, y: -.349185914, z: 0, w: .937053502}
+  m_LocalPosition: {x: 0, y: .513999999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
 --- !u!1 &2058119331
 GameObject:
   m_ObjectHideFlags: 0
@@ -12423,7 +12510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDamage: 100
-  moveSpeed: 3
+  moveSpeed: 2
   dashMaxTime: .200000003
   dashCurrentTime: 0
 --- !u!54 &2058119335
@@ -12459,6 +12546,7 @@ MonoBehaviour:
   healthSlider: {fileID: 250445150}
   damageImage: {fileID: 519428541}
   deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
+  cureClip: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: .0980392173}
 --- !u!95 &2058119337

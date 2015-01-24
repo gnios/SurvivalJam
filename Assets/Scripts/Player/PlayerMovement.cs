@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     if (destinationDistance < .5f || dashCurrentTime <= 0)
     {		// To prevent shakin behavior when near destination
       this.currentMoveSpeed = 0;
-      GameManager.instance.ChangePlayerState(PlayerStates.Stopped);
+      GameManager.instance.ChangePlayerState(PlayerStates.Normal);
       rigidbody.velocity = Vector3.zero;
     }
     else if (destinationDistance > .5f || dashCurrentTime > 0)
@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
       Vector3 direction = (destinationPosition - myTransform.position).normalized;
       rigidbody.AddForce((destinationPosition - transform.position).normalized * (currentMoveSpeed * 10000) * Time.smoothDeltaTime);
+      //myTransform.position = Vector3.MoveTowards(myTransform.position, destinationPosition, this.currentMoveSpeed);
     }
   }
   private Quaternion Turning(Ray ray)
@@ -81,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
   void OnCollisionEnter(Collision collision)
   {
     {
-
       // Try and find an EnemyHealth script on the gameobject hit.
       EnemyHealth enemyHealth = collision.collider.GetComponent<EnemyHealth>();
 
