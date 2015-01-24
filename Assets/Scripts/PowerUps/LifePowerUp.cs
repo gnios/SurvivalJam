@@ -6,11 +6,11 @@ using CompleteProject;
 using UnityEngine;
 using System.Collections;
 
-public class ShieldPowerUp : PowerUp
+public class LifePowerUp : PowerUp
 {
   public override void BehaviuourTrigger()
   {
-    PowerUpManager.instance.ApplyPowerUp(EnumPowerUps.Shield);
-    Debug.Log("ShieldPowerUp");
+    PowerUpManager.instance.ApplyPowerUp(EnumPowerUps.Life);
+    Debug.Log("LifePowerUp");
   }
 }

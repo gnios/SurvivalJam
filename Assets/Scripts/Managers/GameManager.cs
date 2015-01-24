@@ -2,38 +2,24 @@
 
 namespace CompleteProject
 {
+  using System;
+
+  using Assets.Scripts.PowerUps;
+
   public class GameManager : MonoBehaviour
   {
 
     public PlayerStates playerStates;
-    public float durationOfPowerUp = 3;
-    public float currentTimePowerUp;
-    private bool usingPowerUp;
 
     public static GameManager instance { get; private set; }
     void Awake()
     {
       instance = this;
-      currentTimePowerUp = durationOfPowerUp;
-    }
-
-    void Update()
-    {
-      if (usingPowerUp)
-      {
-        currentTimePowerUp -= Time.deltaTime;
-        if (currentTimePowerUp <= 0)
-        {
-          this.ChangePlayerState(PlayerStates.Normal);
-        }
-      }
     }
 
     public void ChangePlayerState(PlayerStates state)
     {
       this.playerStates = state;
-      usingPowerUp = true;
-      currentTimePowerUp = durationOfPowerUp;
     }
 
     public GameObject SeekPlayerNext(Vector3 point)

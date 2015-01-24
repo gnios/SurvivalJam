@@ -4,6 +4,9 @@ using System.Collections;
 
 namespace CompleteProject
 {
+  using Assets.Scripts.Managers;
+  using Assets.Scripts.PowerUps;
+
   public class PlayerHealth : MonoBehaviour
   {
     public int startingHealth = 100;                            // The amount of health the player starts the game with.
@@ -49,7 +52,7 @@ namespace CompleteProject
 
     public void TakeDamage(int amount)
     {
-      if (GameManager.instance.playerStates != PlayerStates.Shield)
+      if (PowerUpManager.instance.PowerUpActive != EnumPowerUps.Shield)
       {
         damageImage.color = flashLifeColour;
         damaged = true;

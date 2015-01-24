@@ -8,5 +8,6 @@ namespace Assets.Scripts.Managers
   public static class Tags
   {
     public const string PLAYER = "Player";
+    public const string SHIELD = "Shield";
   }
 }
